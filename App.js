@@ -1,14 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './screens/home';
+import * as Font from 'expo-font';
+import {AppLoading} from 'expo';
+
+const getFonts = ()=> Font.loadAsync({
+      'nunito-regular': require('./assets/Fonts/Nunito/Nunito-Regular.ttf'),
+      'nunito-bold': require('./assets/Fonts/Nunito/Nunito-Bold.ttf'),
+  });
 
 export default function App() {
-  return (
-    <Home/>
-  );
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+    if(fontsLoaded){
+      console.log("loaded");
+      return (
+        <Home/>
+      );
+    } else {
+      console.log("not loaded");
+        return(
+            <AppLoading
+                startAsync={getFonts}
+                onFinish={()=> setFontsLoaded(true)}
+            />
+        )
+    }
 }
 
-const styles = StyleSheet.create({
+// const styles = StyleSheet.create({
   
-});
+// });
