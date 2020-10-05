@@ -1,18 +1,33 @@
-import React from 'react';
-import { StyleSheet, View, Text, Button} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Button, TouchableOpacity, FlatList} from 'react-native';
+import Card from '../shared/card';
 import {globalStyles} from '../styles/global';
 
 export default function Home({navigation}){
+    const [review, setReview] = useState([
+        {title: "zelda et ses amis", rating: 5, body: "ce jeu est trop bien", key: 1},
+        {title: "zelda et ses cousins", rating: 4, body: "ce jeu est trop bien, attention aux cousins", key: 2},
+        {title: "zelda et ses potos", rating: 3, body: "ce jeu est trop bien, attention aux macabé", key: 3},
+    ]);
 
-    const onPressHandler = ()=>{
-        navigation.navigate('ReviewDetails');
+    const onPressHandler = (item)=>{
+        navigation.navigate('ReviewDetails', item);
     }
 
-    console.log("home");
     return (
         <View style={globalStyles.container}>
-            <Text style={globalStyles.textTitle}>Home Screen</Text>
-            <Button title='go to reviewDetails' onPress={onPressHandler} />
+            
+                <FlatList 
+                    data={review}
+                    renderItem={({item}) => (
+                        <TouchableOpacity onPress={() => onPressHandler(item)}>
+                            <Card>
+                                <Text style={globalStyles.textTitle}>{item.title}</Text>
+                            </Card>
+                        </TouchableOpacity>
+                    )
+                }/>
+            
         </View>
     )
 }

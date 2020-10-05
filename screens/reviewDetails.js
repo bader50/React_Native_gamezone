@@ -1,18 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button} from 'react-native';
 import {globalStyles} from '../styles/global';
-
+import Card from '../shared/card';
 
 export default function ReviewDetails({navigation}){
-
-    const onPressHandler = ()=>{
-        navigation.goBack();
-    }
-
     return (
         <View style={globalStyles.container}>
-            <Text>ReviewDetails Screen</Text>
-            <Button title='go back' onPress={onPressHandler} />
+            <Card>
+                <Text>{navigation.getParam("title")}</Text>
+                <Text>{navigation.getParam("body")}</Text>
+                <Text>{navigation.getParam("rating")}</Text>
+            </Card>
         </View>
     )
 };
