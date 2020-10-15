@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Button } from 'react-native';
-import {globalStyles} from '../styles/global.js';
+import { StyleSheet, View, TextInput, Button,Text } from 'react-native';
+import {globalStyles} from '../styles/global';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import FlatButton from '../shared/button'
 
 export default function ReviewForm ( {addReview} ){
 
@@ -33,27 +34,37 @@ export default function ReviewForm ( {addReview} ){
             
                 {props => (
                     <View>
+
                         <TextInput
                             style={globalStyles.input}
                             placeholder='Review title'
                             onChangeText={props.handleChange('title')}
                             value={props.values.title}
+                            onBlur={props.handleBlur('title')}
                         />
+                        <Text style={globalStyles.errorText}> {props.touched.title && props.errors.title} </Text>
+
                         <TextInput
-                            multiline
+                            multiline minHeight={100}
                             style={globalStyles.input}
                             placeholder='Review body'
                             onChangeText={props.handleChange('body')}
                             value={props.values.body}
+                            onBlur={props.handleBlur('body')}
                         />
+                        <Text style={globalStyles.errorText}> {props.touched.body && props.errors.body} </Text>
+
                         <TextInput
                             keyboardType='numeric'
                             style={globalStyles.input}
                             placeholder='Rating (1 - 5)'
                             onChangeText={props.handleChange('rating')}
                             value={props.values.rating}
+                            onBlur={props.handleBlur('rating')}
                         />
-                        <Button title='Submit' color='maroon' onPress={props.handleSubmit} />
+                        <Text style={globalStyles.errorText}> {props.touched.rating && props.errors.rating} </Text>
+
+                        <FlatButton text='Submit' onPress={props.handleSubmit} />
                     </View>
                     )}
             </Formik>
